@@ -20,7 +20,7 @@ def load_json_corpus(corpus_dir):
     return corpus
     
     
-corpus_path = '/home/ubuntu/arwiki/arwikiExtracts/20181020/'    
+corpus_path = '../arwikiExtracts/20181020/'    
 wiki_corpus = load_json_corpus(corpus_path)
 print('corpus loaded')
 texts = [[word for word in d.split()] for i, t, d  in wiki_corpus]
