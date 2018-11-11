@@ -37,10 +37,15 @@ dictionary.save('ar_wiki_20181020.dict')
 print('dictionary saved')
 corpus = [dictionary.doc2bow(text) for text in texts]
 print('gensim corpus transformed')
-corpus_tfidf = models.TfidfModel(corpus) 
+tfidf = models.TfidfModel(corpus) 
+print('tfidf modeled')
+corpus_tfidf = tfidf[corpus]
 print('tfidf corpus transformed')
+# initialize an LSI transformation
 lsi = models.LsiModel(corpus_tfidf, id2word=dictionary, num_topics=500) 
 print('lsi corpus built')
+# create a double wrapper over the original corpus: 
+# bow->tfidf->fold-in-lsi
 corpus_lsi = lsi[corpus_tfidf] 
 print('lsi corpus transformed')
 lsi.save('ar_wiki_20181020.lsi') 
