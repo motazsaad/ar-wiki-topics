@@ -20,34 +20,40 @@ def load_json_corpus(corpus_dir):
     return corpus
     
     
-corpus_path = '../arwikiExtracts/20181020/'    
-wiki_corpus = load_json_corpus(corpus_path)
-print('corpus loaded')
-texts = [[word for word in d.split()] for i, t, d  in wiki_corpus]
-print('texts collected')
-frequency = defaultdict(int)
-for text in texts:
-    for token in text:
-        frequency[token] += 1
+def build_model(corpus_path, min_freq, topics):
+    wiki_corpus = load_json_corpus(corpus_path)
+    print('corpus loaded')
+    texts = [[word for word in d.split()] for i, t, d  in wiki_corpus]
+    print('texts collected')
+    frequency = defaultdict(int)
+    for text in texts:
+        for token in text:
+            frequency[token] += 1
+    
+    texts = [[token for token in text if frequency[token] > min_freq] for text in texts]
+    print('texts filtered')
+    dictionary = corpora.Dictionary(texts)
+    dictionary.save('ar_wiki_20181020_{}freq_{}topics.dict'.format(min_freq, topics))
+    print('dictionary saved')
+    corpus = [dictionary.doc2bow(text) for text in texts]
+    print('gensim corpus transformed')
+    tfidf = models.TfidfModel(corpus) 
+    print('tfidf modeled')
+    corpus_tfidf = tfidf[corpus]
+    print('tfidf corpus transformed')
+    # initialize an LSI transformation
+    lsi = models.LsiModel(corpus_tfidf, id2word=dictionary, num_topics=topics) 
+    print('lsi corpus built')
+    # create a double wrapper over the original corpus: 
+    # bow->tfidf->fold-in-lsi
+    corpus_lsi = lsi[corpus_tfidf] 
+    print('lsi corpus transformed')
+    lsi.save('ar_wiki_20181020_{}freq_{}topics.lsi'.format(min_freq, topics)) 
+    print('lsi corpus saved')
+    print('done!')
 
-texts = [[token for token in text if frequency[token] > 1] for text in texts]
-print('texts filtered')
-dictionary = corpora.Dictionary(texts)
-dictionary.save('ar_wiki_20181020.dict')
-print('dictionary saved')
-corpus = [dictionary.doc2bow(text) for text in texts]
-print('gensim corpus transformed')
-tfidf = models.TfidfModel(corpus) 
-print('tfidf modeled')
-corpus_tfidf = tfidf[corpus]
-print('tfidf corpus transformed')
-# initialize an LSI transformation
-lsi = models.LsiModel(corpus_tfidf, id2word=dictionary, num_topics=500) 
-print('lsi corpus built')
-# create a double wrapper over the original corpus: 
-# bow->tfidf->fold-in-lsi
-corpus_lsi = lsi[corpus_tfidf] 
-print('lsi corpus transformed')
-lsi.save('ar_wiki_20181020.lsi') 
-print('lsi corpus saved')
-print('done!')
+
+
+corpus_path = '../arwikiExtracts/20181020/' 
+build_model(corpus_path, min_freq=3, topics=500)
+build_model(corpus_path, min_freq=5, topics=300)
