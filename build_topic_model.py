@@ -21,6 +21,7 @@ def load_json_corpus(corpus_dir):
     
     
 def build_model(corpus_path, min_freq, topics):
+    print('min freq:', min_freq, 'topics:', topics)
     wiki_corpus = load_json_corpus(corpus_path)
     print('corpus loaded')
     texts = [[word for word in d.split()] for i, t, d  in wiki_corpus]
@@ -55,5 +56,6 @@ def build_model(corpus_path, min_freq, topics):
 
 
 corpus_path = '../arwikiExtracts/20181020/' 
-build_model(corpus_path, min_freq=3, topics=500)
-build_model(corpus_path, min_freq=5, topics=300)
+# build_model(corpus_path, min_freq=3, topics=500)
+# build_model(corpus_path, min_freq=5, topics=300)
+build_model(corpus_path, min_freq=7, topics=300)
