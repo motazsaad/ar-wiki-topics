@@ -21,7 +21,7 @@ def load_json_newsletters(corpus_dir):
     eng_corpus = list()
     ids = list()
     json_files = glob.glob(corpus_dir + '/*.json')
-    print(json_files)
+    print('# of newsletters:', len(json_files))
     for json_file in json_files:
         line = open(json_file).read()
         json_doc = json.loads(line)
@@ -110,5 +110,5 @@ def build_model(corpus, corpus_name, min_freq, topics):
 # build_model(my_corpus, 'ar_jsc_100k', min_freq=7, topics=300)
 
 # json newsletters
-arabic_docs, english_docs = load_json_newsletters('../newsletter_json')
+arabic_docs, english_docs = load_json_newsletters('../newsletter')
 build_model(arabic_docs, 'ar_newsletters', min_freq=3, topics=500)
