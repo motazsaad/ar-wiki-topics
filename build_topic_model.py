@@ -110,5 +110,5 @@ def build_model(corpus, corpus_name, min_freq, topics):
 # build_model(my_corpus, 'ar_jsc_100k', min_freq=7, topics=300)
 
 # json newsletters
-arabic_docs, english_docs = load_json_newsletters('../newsletter')
+arabic_docs, english_docs = load_json_newsletters('../newsletter/json')
 build_model(arabic_docs, 'ar_newsletters', min_freq=3, topics=500)
