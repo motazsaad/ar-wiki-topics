@@ -26,7 +26,7 @@ def load_json_newsletters(corpus_dir):
         json_doc = json.loads(open(json_file).read())
         try:
             j_articles = json_doc['articles']
-            print('# of articles:', len(j_articles))
+            # print('# of articles:', len(j_articles))
             for i in range(len(j_articles)):
                 doc_id = j_articles[i]['id']
                 title = clean_text(j_articles[i]['title'])
