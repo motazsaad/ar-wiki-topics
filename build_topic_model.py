@@ -76,6 +76,7 @@ def load_plain_corpus(corpus_dir):
 
 def build_model(corpus, corpus_name, min_freq, topics):
     print('min freq:', min_freq, 'topics:', topics)
+    print('corpus size:', len(corpus))
     texts = [[word for word in d.split()] for d in corpus]
     print('texts collected')
     frequency = defaultdict(int)
