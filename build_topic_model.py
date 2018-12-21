@@ -17,7 +17,6 @@ def clean_text(text):
 
 def load_json_newsletters(corpus_dir):
     alphabet_detector = AlphabetDetector()
-
     arb_corpus = list()
     eng_corpus = list()
     ids = list()
@@ -111,5 +110,5 @@ def build_model(corpus, corpus_name, min_freq, topics):
 # build_model(my_corpus, 'ar_jsc_100k', min_freq=7, topics=300)
 
 # json newsletters
-arabic_docs, english_docs = load_json_wiki_corpus('../newsletter_json')
+arabic_docs, english_docs = load_json_newsletters('../newsletter_json')
 build_model(arabic_docs, 'ar_newsletters', min_freq=3, topics=500)
