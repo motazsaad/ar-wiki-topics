@@ -34,7 +34,7 @@ def load_json_newsletters(corpus_dir):
                 doc_id = j_articles[e]['id']
                 title = clean_text(j_articles[e]['title'])
                 text = clean_text(j_articles[e]['body'])
-                print(text)
+                # print(text)
                 link = j_articles[e]['link']
                 if 'ARABIC' in alphabet_detector.detect_alphabet(text):
                     arb_corpus.append(text)
