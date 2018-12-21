@@ -1,11 +1,14 @@
 import glob
 import json
+import logging
 import os
 from collections import defaultdict
 
 from alphabet_detector import AlphabetDetector
 from bs4 import BeautifulSoup
 from gensim import corpora, models
+
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 
 
 def clean_text(text):
