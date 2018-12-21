@@ -26,6 +26,7 @@ def load_json_newsletters(corpus_dir):
         json_doc = json.loads(open(json_file).read())
         try:
             j_articles = json_doc['articles']
+            print('# of articles:', len(j_articles))
             if len(j_articles) > 1:
                 for doc in j_articles:
                     doc_id = doc['id']
