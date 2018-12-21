@@ -27,17 +27,16 @@ def load_json_newsletters(corpus_dir):
         try:
             j_articles = json_doc['articles']
             print('# of articles:', len(j_articles))
-            if len(j_articles) > 1:
-                for doc in j_articles:
-                    doc_id = doc['id']
-                    title = clean_text(doc['title'])
-                    text = clean_text(doc['body'])
-                    link = doc['link']
-                    if doc_id not in ids:
-                        if 'ARABIC' in alphabet_detector.detect_alphabet(text):
-                            arb_corpus.append(text)
-                        else:
-                            eng_corpus.append(text)
+            for i in range(len(j_articles)):
+                doc_id = j_articles[i]['id']
+                title = clean_text(j_articles[i]['title'])
+                text = clean_text(j_articles[i]['body'])
+                link = j_articles[i]['link']
+                if doc_id not in ids:
+                    if 'ARABIC' in alphabet_detector.detect_alphabet(text):
+                        arb_corpus.append(text)
+                    else:
+                        eng_corpus.append(text)
         except KeyError:
             continue
     return arb_corpus, eng_corpus
