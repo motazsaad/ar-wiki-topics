@@ -122,3 +122,4 @@ def build_model(corpus, corpus_name, min_freq, topics):
 # json newsletters
 arabic_docs, english_docs = load_json_newsletters('../newsletters/json')
 build_model(arabic_docs, 'ar_newsletters', min_freq=3, topics=500)
+build_model(english_docs, 'en_newsletters', min_freq=3, topics=500)
