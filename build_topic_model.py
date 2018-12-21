@@ -42,6 +42,9 @@ def load_json_newsletters(corpus_dir):
                         eng_corpus.append(text)
         except KeyError:
             continue
+
+    print('# of Arabic documents:', len(arb_corpus))
+    print('# of English documents:', len(eng_corpus))
     return arb_corpus, eng_corpus
 
 
