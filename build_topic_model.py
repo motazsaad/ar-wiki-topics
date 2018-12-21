@@ -12,9 +12,12 @@ logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=lo
 
 
 def clean_text(text):
-    text = BeautifulSoup(text, 'html.parser').text
-    text = text.replace('&quot;', '\"')
-    text = text.replace('&#39;', '\'')
+    try:
+        text = BeautifulSoup(text, 'html.parser').text
+        text = text.replace('&quot;', '\"')
+        text = text.replace('&#39;', '\'')
+    except TypeError:
+        text = ''
     return text
 
 
