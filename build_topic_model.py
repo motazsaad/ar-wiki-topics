@@ -23,20 +23,20 @@ def load_json_newsletters(corpus_dir):
     json_files = glob.glob(corpus_dir + '/*.json')
     print('# of newsletters:', len(json_files))
     for json_file in json_files:
-        line = open(json_file).read()
-        json_doc = json.loads(line)
+        json_doc = json.loads(open(json_file).read())
         try:
             j_articles = json_doc['articles']
-            for doc in j_articles:
-                doc_id = doc['id']
-                title = clean_text(doc['title'])
-                text = clean_text(doc['body'])
-                link = doc['link']
-                if doc_id not in ids:
-                    if 'ARABIC' in alphabet_detector.detect_alphabet(text):
-                        arb_corpus.append(text)
-                    else:
-                        eng_corpus.append(text)
+            if j_articles:
+                for doc in j_articles:
+                    doc_id = doc['id']
+                    title = clean_text(doc['title'])
+                    text = clean_text(doc['body'])
+                    link = doc['link']
+                    if doc_id not in ids:
+                        if 'ARABIC' in alphabet_detector.detect_alphabet(text):
+                            arb_corpus.append(text)
+                        else:
+                            eng_corpus.append(text)
         except KeyError:
             continue
     return arb_corpus, eng_corpus
