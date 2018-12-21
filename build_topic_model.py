@@ -34,12 +34,12 @@ def load_json_newsletters(corpus_dir):
                 doc_id = j_articles[i]['id']
                 title = clean_text(j_articles[i]['title'])
                 text = clean_text(j_articles[i]['body'])
+                print(text)
                 link = j_articles[i]['link']
-                if doc_id not in ids:
-                    if 'ARABIC' in alphabet_detector.detect_alphabet(text):
-                        arb_corpus.append(text)
-                    else:
-                        eng_corpus.append(text)
+                if 'ARABIC' in alphabet_detector.detect_alphabet(text):
+                    arb_corpus.append(text)
+                else:
+                    eng_corpus.append(text)
         except KeyError:
             continue
 
